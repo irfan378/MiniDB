@@ -1,7 +1,9 @@
-package main  
+package main
 
-import ("github.com/irfan378/MiniDB/internal/repl")
+import (
+	"github.com/irfan378/MiniDB/internal/repl"
+)
 
-func main(){
+func main() {
 	repl.Start()
 }
