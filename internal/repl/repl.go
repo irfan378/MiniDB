@@ -2,12 +2,19 @@ package repl
 
 import (
 	"fmt"
+	"os"
+
+	"github.com/irfan378/MiniDB/internal/db"
 	"github.com/irfan378/MiniDB/internal/input"
 	"github.com/irfan378/MiniDB/internal/statement"
-	"os"
 )
 
 func Start() {
+	database, err := db.Open("minidb.db")
+	if err != nil {
+		fmt.Println("Failed to open database:", err)
+		os.Exit(1)
+	}
 	inputBuffer := input.NewInputBuffer()
 
 	for {
@@ -42,7 +49,7 @@ func Start() {
 			continue
 		}
 
-		if err := statement.ExecuteStatement(&stmt); err != nil {
+		if err := statement.ExecuteStatement(&stmt, database); err != nil {
 			fmt.Println("Execution error:", err)
 			continue
 		}
